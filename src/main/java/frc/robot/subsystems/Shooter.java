@@ -25,7 +25,7 @@ import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-
+import frc.robot.Vision;
 import static frc.robot.Constants.ShooterConstants.*;
 
 public class Shooter extends SubsystemBase {
@@ -38,8 +38,9 @@ public class Shooter extends SubsystemBase {
   private final MutableMeasure<Velocity<Angle>> velocity = mutable(RPM.of(0));
   public final SysIdRoutine routine;
   SimpleMotorFeedforward topFF, bottomFF;
+  Vision vision;
 
-  public Shooter() {
+  public Shooter(Vision vision) {
     topMotor = new CANSparkMax(14, MotorType.kBrushless);
     bottomMotor = new CANSparkMax(15, MotorType.kBrushless);
 
@@ -64,6 +65,8 @@ public class Shooter extends SubsystemBase {
     bottomPID.setI(BOTTOM_MOTOR_KI);
     bottomPID.setD(BOTTOM_MOTOR_KD);
     bottomFF = new SimpleMotorFeedforward(BOTTOM_MOTOR_KS, BOTTOM_MOTOR_KV, BOTTOM_MOTOR_KA);
+
+    this.vision = vision;
 
     // sysid
     routine = new SysIdRoutine(
