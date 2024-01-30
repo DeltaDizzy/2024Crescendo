@@ -20,9 +20,10 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Transform3d;
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Constants.FieldConstants;
 import frc.robot.Constants.VisionConstants;
@@ -65,7 +66,7 @@ public class Vision {
     currentEstimatedPose = visionPoseEstimator.update().get();
   }
   public Transform3d GetRobotToSpeakerTransform() {
-    if (isBlueAlliance) {
+    if (DriverStation.getAlliance().orElse(Alliance.Blue) == Alliance.Blue) {
       return GetRobotToTagTransform(FieldConstants.BLUE_SPEAKER_TAG_ID, currentEstimatedPose.estimatedPose);
     }else{
       return GetRobotToTagTransform(FieldConstants.RED_SPEAKER_TAG_ID, currentEstimatedPose.estimatedPose);
