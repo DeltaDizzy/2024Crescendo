@@ -35,15 +35,15 @@ public class CommandSwerveDrivetrain extends SwerveDrivetrain implements Subsyst
     private double m_lastSimTime;
     private final SwerveRequest.ApplyChassisSpeeds autoRequest = new SwerveRequest.ApplyChassisSpeeds();
     private final SwerveRequest.FieldCentric driveFieldCentric = new SwerveRequest.FieldCentric()
-        .withDeadband(DriveConstants.maxSpeed.in(MetersPerSecond) * 0.1).withRotationalDeadband(DriveConstants.maxAngularRate.in(RadiansPerSecond) * 0.1) // Add a 10% deadband
+        .withDeadband(DriveConstants.MAX_SPEED.in(MetersPerSecond) * 0.1).withRotationalDeadband(DriveConstants.MAX_ANGULAR_RATE.in(RadiansPerSecond) * 0.1) // Add a 10% deadband
         .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // I want field-centric driving in open loop
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
 
     public Command driveFieldRelative(DoubleSupplier xVelocity, DoubleSupplier yVelocity, DoubleSupplier omegaVelocity) {
         return run(() -> setControl(
-            driveFieldCentric.withVelocityX(-xVelocity.getAsDouble() * DriveConstants.maxSpeed.in(MetersPerSecond))
-                .withVelocityY(-yVelocity.getAsDouble() * DriveConstants.maxSpeed.in(MetersPerSecond))
-                .withRotationalRate(-omegaVelocity.getAsDouble() * DriveConstants.maxAngularRate.in(RadiansPerSecond))
+            driveFieldCentric.withVelocityX(-xVelocity.getAsDouble() * DriveConstants.MAX_SPEED.in(MetersPerSecond))
+                .withVelocityY(-yVelocity.getAsDouble() * DriveConstants.MAX_SPEED.in(MetersPerSecond))
+                .withRotationalRate(-omegaVelocity.getAsDouble() * DriveConstants.MAX_ANGULAR_RATE.in(RadiansPerSecond))
             )
         );
     }
