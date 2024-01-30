@@ -4,13 +4,15 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
+
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.units.Angle;
 import edu.wpi.first.units.Distance;
 import edu.wpi.first.units.Measure;
-import static edu.wpi.first.units.Units.*;
 import edu.wpi.first.units.Velocity;
 
 /** Add your docs here. */
@@ -46,5 +48,10 @@ public final class Constants {
 
         public static final double DEFAULT_SHOOTER_SPEED = 0.75;
 
+    }
+
+    public static final class DriveConstants {
+        public static final Measure<Velocity<Distance>> MAX_SPEED = MetersPerSecond.of(1);
+        public static final Measure<Velocity<Angle>> MAX_ANGULAR_RATE = RotationsPerSecond.of(0.5);
     }
 }
